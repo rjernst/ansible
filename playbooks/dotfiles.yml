@@ -1,0 +1,28 @@
+---
+- name: Install dotfiles
+  hosts: localhost
+  tasks:
+    - name: Clone repo
+      git:
+        repo: git@github.com:rjernst/dotfiles.git
+        dest: $HOME/.dotfiles
+        update: no
+
+    - name: Install zsh
+      pacman:
+        name: zsh
+      become: yes
+
+    - name: Install vim
+      pacman:
+        name: vim
+      become: yes
+
+    - name: Install scripts
+      shell: $HOME/.dotfiles/install
+
+    - name: Set shell to zsh
+      user:
+        name: "{{ ansible_user_id }}"
+        shell: /bin/zsh
+      become: yes

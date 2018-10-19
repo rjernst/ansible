@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+BASE_URL=https://raw.githubusercontent.com/rjernst/dotfiles/master
+PLATFORM=$(curl -s $BASE_URL/scripts/detect-platform | bash)
+echo "Deteched platform: $PLATFORM"
+
+bootstrap_macos() {
+  command -v brew &> /dev/null || {
+    echo "---> Installing homebrew"
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  }
+  command -v ansible &> /dev/null || {
+    echo "---> Installing ansible"
+    /usr/local/bin/brew install ansible
+  }
+  command -v git &> /dev/null || {
+    echo "---> Installing git"
+    /usr/local/bin/brew install git
+  }
+}
+
+bootstrap_arch() {
+  echo "---> Installing ansible"
+  sudo pacman -S --noconfirm --needed ansible
+  echo "---> Installing git"
+  sudo pacman -S --noconfirm --needed git
+}
+
+case "$PLATFORM" in
+  'macos')
+    bootstrap_macos        
+    ;;
+  'arch')
+    bootstrap_arch
+    ;;
+  *)
+    echo "Unsupported platform $PLATFORM"
+    ;; 
+esac
+
+if [ ! -d ~/ansible ]; then
+    echo "Cloning ansible scripts"
+    git clone git@github.com:rjernst/ansible.git ~/ansible
+else
+    echo "Ansible scripts already cloned"
+fi
