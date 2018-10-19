@@ -40,7 +40,7 @@ esac
 
 if [ ! -d ~/ansible ]; then
     echo "Cloning ansible scripts"
-    git clone git@github.com:rjernst/ansible.git ~/ansible
+    git clone https://github.com/rjernst/ansible.git ~/ansible
 else
     echo "Ansible scripts already cloned"
 fi
