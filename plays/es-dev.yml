@@ -14,7 +14,7 @@
       when: use_ramdisk
 
     - name: create repo base dir
-      shell: mkdir -p "{{ code_dir }}"
+      shell: mkdir -p "$HOME/{{ code_dir }}"
 
     - name: set repo path
       set_fact:
