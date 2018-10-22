@@ -2,7 +2,8 @@
 - name: setup elasticsearch development
   hosts: localhost
   vars:
-    github_user: rjernst
+    username: "{{ ansible_user_id }}"
+    github_user: "{{ username | default(ansible_user_id) }}"
     code_dir: code/elastic
     min_jdk: 8
     use_ramdisk: true

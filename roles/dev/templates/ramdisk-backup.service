@@ -2,9 +2,9 @@
 Description=Backup for /mnt/ramdisk
 
 [Service]
-User=rjernst
-Group=rjernst
-ExecStart=/bin/bash /home/rjernst/.local/backup-ramdisk.sh
+User={{ username }}
+Group={{ username }}
+ExecStart=/bin/bash /home/{{ username }}/.local/ramdisk-backup.sh
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 
