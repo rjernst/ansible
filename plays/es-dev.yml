@@ -32,6 +32,9 @@
         state: link
       when: use_ramdisk
 
+    - name: create repo base dir
+      shell: mkdir -p "{{ code_dir }}"
+
     - name: clone repo
       git:
         repo: "git@github.com:elastic/elasticsearch.git"
