@@ -1,0 +1,20 @@
+---
+- name: install vagrant
+  pacman:
+    name: vagrant
+
+# kernel modules first so the default dkms is not chosen when installing vbox
+- name: install vbox kernel modules
+  pacman:
+    name: virtualbox-host-modules-arch
+
+- name: install virtualbox
+  pacman:
+    name: virtualbox
+
+- name: install vbox guest additions
+  pacman:
+    name: virtualbox-guest-utils
+
+- name: load vbox kernel modules
+  shell: modprobe vboxdrv
