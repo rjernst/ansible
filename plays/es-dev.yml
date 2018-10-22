@@ -13,6 +13,9 @@
         tasks_from: ramdisk
       when: use_ramdisk
 
+    - name: create repo base dir
+      shell: mkdir -p "{{ code_dir }}"
+
     - name: set repo path
       set_fact:
         checkout_path: "$HOME/{{ code_dir }}/elasticsearch"
@@ -31,9 +34,6 @@
         follow: no
         state: link
       when: use_ramdisk
-
-    - name: create repo base dir
-      shell: mkdir -p "{{ code_dir }}"
 
     - name: clone repo
       git:
